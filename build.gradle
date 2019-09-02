@@ -12,7 +12,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'io.spring.dependency-management'
 
-group = 'com.chinhoyi.team.marsrovercommunications'
+group = 'com.rusape.team.marsrovercommunications'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 task fatJar(type: Jar) {

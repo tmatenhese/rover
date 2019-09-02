@@ -1,6 +1,7 @@
 package com.rusape.rovercommunications.service.impl;
 
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class IntializationMessageProcessor implements MessageReceiver {
 	@Transactional
 	public Map<Character,String>  processMessage(char messageType,String message) {
         Map<Character,String> resultMap = messageParser.responseParser(messageType,message);  
+        LOGGER.log(Level.INFO,"<<<<<<<<<<INITIALIZATION MESSAGE>>>>>>>> "+resultMap);        
         InitializationMessage initializationMessage = initializationService.processInitialisation(resultMap.get(messageType));
         initializationMessage = initializationService.save(initializationMessage);
         initializationService.setInitializationMessage(initializationMessage);

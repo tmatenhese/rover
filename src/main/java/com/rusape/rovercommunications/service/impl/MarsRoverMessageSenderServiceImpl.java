@@ -27,7 +27,7 @@ private RoverCommunicationClient roverCommunicationClient;
 		//control		
 		String control = telemetryMessage.getVehicleControl();
 		if(currentSpeed<maxSpeed) {
-//			roverCommunicationClient.sendNavigationCommands("a;");
+			roverCommunicationClient.sendNavigationCommands("a;");
 		}
 	}
 

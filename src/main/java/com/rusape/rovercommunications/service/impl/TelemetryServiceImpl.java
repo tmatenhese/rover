@@ -3,6 +3,7 @@ package com.rusape.rovercommunications.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,6 +70,7 @@ public class TelemetryServiceImpl implements TelemetryService {
 				if(objectKinds!=null) {					
 					String[] objectKindArr = objectKinds.split(",");
 					for(String objectKind:objectKindArr) {
+						
 						MartianObject martianObj = new MartianObject();
 						martianObj.setTelemetryMessage(telemetryMessage);						
 						String[] objectKindArray = objectKind.split(" ");
@@ -76,10 +78,13 @@ public class TelemetryServiceImpl implements TelemetryService {
 						martianObj.setyCoordinate(new Float(objectKindArray[1]));
 						martianObj.setRadius(new Float(objectKindArray[2]));
 						if(objKind=='c') {
+							LOGGER.log(Level.INFO,"<<<<<<<<<<CRATER OBJECT>>>>>>>> "+objectKind);
 							martianObj.setObjectKind(MarsObjectKind.CRATER.name());
 						}else if(objKind=='b') {
+							LOGGER.log(Level.INFO,"<<<<<<<<<<BOULDER OBJECT>>>>>>>> "+objectKind);
 							martianObj.setObjectKind(MarsObjectKind.BOULDER.name());
 						}else if(objKind=='h') {
+							LOGGER.log(Level.INFO,"<<<<<<<<<<HOME BASE OBJECT>>>>>>>> "+objectKind);
 							martianObj.setObjectKind(MarsObjectKind.HOMEBASE.name());
 						}							
 						martianObj.setTelemetryMessage(telemetryMessage);
@@ -98,6 +103,7 @@ public class TelemetryServiceImpl implements TelemetryService {
 		if(enemy!=null) {
 			String[] enemyArr = enemy.split(",");
 			for(String martianEnemy:enemyArr) {
+				LOGGER.log(Level.INFO,"<<<<<<<<<<MARTIAN OBJECT>>>>>>>> "+martianEnemy);
 				String[] enemyArray = martianEnemy.split(" ");
 				martian.setxCoordinate(new Float(enemyArray[0]));
 				martian.setyCoordinate(new Float(enemyArray[1]));

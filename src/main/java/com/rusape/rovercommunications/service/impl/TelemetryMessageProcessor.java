@@ -35,19 +35,19 @@ public class TelemetryMessageProcessor implements MessageReceiver {
 	@Transactional
 	public Map<Character,String> processMessage(char messageType,String message) {
 		Map<Character,String>  responseMap =messageParser.responseParser(messageType,message);
-        LOGGER.log(Level.INFO,"<<<<<<<<<<Telemetry Message>>>>>>>> "+responseMap);        
+        LOGGER.log(Level.INFO,"<<<<<<<<<<TELEMETRY MESSAGE>>>>>>>> "+responseMap);        
         TelemetryMessage telemetryMessage = telemetryService.processTelemetry(responseMap.get(messageType));
         telemetryMessage = telemetryService.save(telemetryMessage);
         if(responseMap.containsKey('b') | responseMap.containsKey('c')| responseMap.containsKey('h')) {
             List<MartianObject> martianObjects = telemetryService.processMartianObjectMessage(responseMap,telemetryMessage);
             telemetryService.saveAllObjects(martianObjects);
         }
-        if(responseMap.containsKey('m')) {
+        if(responseMap.containsKey('m')) {       	
             List<Martian> martians = telemetryService.processMartinEnemy(responseMap.get('m'),telemetryMessage);
             telemetryService.saveAllEnemies(martians);
         }
-        
-        marsRoverMessageSenderService.sendMessage(initializationService.getInitializationMessage(), telemetryMessage, null);
+        //communicate with the rover
+//        marsRoverMessageSenderService.sendMessage(initializationService.getInitializationMessage(), telemetryMessage, null);
         
         return responseMap;
 	}
